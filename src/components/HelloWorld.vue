@@ -48,6 +48,7 @@ import { computed, defineComponent } from "vue"
 import { useRouteQuery } from "@vueuse/router"
 import { useStore } from "@/store"
 import { emitter } from "@/store/PubSub"
+import { useTitle } from "@vueuse/core"
 
 export default defineComponent({
   name: "HelloWorld",
@@ -61,6 +62,8 @@ export default defineComponent({
     const store = useStore()
 
     const search = useRouteQuery("search")
+
+    const title = useTitle()
 
     return {
       // typed as number
@@ -78,7 +81,10 @@ export default defineComponent({
       // reactive search text
       search: computed({
         get: () => search?.value,
-        set: (val) => (search.value = val),
+        set: (val) => {
+          search.value = val
+          title.value = search.value as string
+        },
       }),
     }
   },
