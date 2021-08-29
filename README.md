@@ -1,6 +1,8 @@
-# Vue 3 + Typescript + Vite + Vuex + Router + Tailwindcss
+# Admin console template
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. Typescript/Vite 환경에서 개발가능한 Vue3
+### Vue 3 + Typescript + Vite + Vuex + Router + Tailwindcss
+
+This template should help get you started developing with Vue 3 and Typescript in Vite. Typescript/Vite 환경에서 개발가능한 Vue3 관리자 
 템플릿
 
 * SCSS
