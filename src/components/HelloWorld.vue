@@ -1,6 +1,7 @@
 <template>
   <h1>{{ $t("message.hello") }}</h1>
   <h2>{{ search }}</h2>
+
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
@@ -36,7 +37,7 @@
   <button class="m-4 p-4 last" type="button" @click="emitIncrement">
     count is: {{ count }}
   </button>
-  <input v-model="search" type="text" />
+  <input ref="input" v-model="search" type="text" />
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -44,11 +45,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue"
+import { computed, defineComponent, ref } from "vue"
 import { useRouteQuery } from "@vueuse/router"
 import { useStore } from "@/store"
 import { emitter } from "@/store/PubSub"
-import { useTitle } from "@vueuse/core"
+import { useTitle, onStartTyping } from "@vueuse/core"
 
 export default defineComponent({
   name: "HelloWorld",
@@ -59,6 +60,14 @@ export default defineComponent({
     },
   },
   setup: () => {
+    const input = ref(null)
+
+    onStartTyping(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (input?.value && !input?.value.active) input.value.focus()
+    })
+
     const store = useStore()
 
     const search = useRouteQuery("search")
@@ -86,6 +95,9 @@ export default defineComponent({
           title.value = search.value as string
         },
       }),
+      // the DOM element will be assigned to the ref after initial render
+      // 그러니 프로퍼티로 지정되어야 null 에러가 나지 않음
+      input,
     }
   },
   methods: {},
