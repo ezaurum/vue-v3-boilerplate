@@ -1,5 +1,6 @@
 <template>
   <h1>{{ $t("message.hello") }}</h1>
+  <h2>{{ search }}</h2>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
@@ -35,6 +36,7 @@
   <button class="m-4 p-4 last" type="button" @click="emitIncrement">
     count is: {{ count }}
   </button>
+  <input v-model="search" type="text" />
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -43,6 +45,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue"
+import { useRouteQuery } from "@vueuse/router"
 import { useStore } from "@/store"
 import { emitter } from "@/store/PubSub"
 
@@ -57,6 +60,8 @@ export default defineComponent({
   setup: () => {
     const store = useStore()
 
+    const search = useRouteQuery("search")
+
     return {
       // typed as number
       count: computed(() => store.state.count),
@@ -69,6 +74,12 @@ export default defineComponent({
 
       // emit global event
       emitIncrement: () => emitter.emit("globalIncrement", 1),
+
+      // reactive search text
+      search: computed({
+        get: () => search?.value,
+        set: (val) => (search.value = val),
+      }),
     }
   },
   methods: {},
