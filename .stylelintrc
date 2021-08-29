@@ -1,7 +1,8 @@
 {
   "extends": [
     "stylelint-config-recommended",
-    "stylelint-config-standard"
+    "stylelint-config-standard",
+    "stylelint-prettier/recommended"
   ],
   "rules": {
     "at-rule-no-unknown": [

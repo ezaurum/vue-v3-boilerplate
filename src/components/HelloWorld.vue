@@ -89,9 +89,9 @@ export default defineComponent({
 button {
   color: red;
   background: blue;
-  border: 1px solid gray;
-  text-shadow: beige 1px 1px 5px, beige -1px -1px 5px, beige 1px -1px 5px,
-    beige -1px 1px 5px;
+  border: 0.1em solid gray;
+  text-shadow: beige 0.07em 0.25em 0.25em, beige -0.07em -0.07em 0.25em,
+    beige 0.07em -0.07em 0.25em, beige -0.07em 0.07em 0.25em;
 
   &.first {
     background: green;
